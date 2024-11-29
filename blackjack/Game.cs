@@ -81,7 +81,7 @@ namespace blackjack
             Console.WriteLine($"\nAu tour de {player.Name} | {player.Balance}$ :");
             while (player.Bet <= 0 || player.Bet > player.Balance)
             {
-                Console.Write("Entrez votre mise: ");
+                Console.Write("Entrez votre mise (all/half/votre mise) : ");
                 int bet;
                 while (true)
                 {
@@ -93,6 +93,16 @@ namespace blackjack
                         draw.DrawBlackJack();
                         Console.ReadKey(true);
                         input = "0";
+                    }
+
+                    if (input == "all")
+                    {
+                        input = $"{player.Balance}";
+                    }
+
+                    if ( input == "half")
+                    {
+                        input = $"{player.Balance / 2}";
                     }
 
                     if (string.IsNullOrWhiteSpace(input))
@@ -220,7 +230,7 @@ namespace blackjack
                     player.Balance -= player.Bet;
                 }
                 string delta = player.Balance - oldBalance > 0 ? "+" : "";
-                Console.Write($" avec un Score {playerScore}, une mise de {player.Bet}$ et donc une différence de {delta}{player.Balance - oldBalance}$\n\n");
+                Console.Write($" avec un Score {playerScore}, une mise de {player.Bet}$ et donc une différence de {delta}{player.Balance - oldBalance}$ par rapport à son argent de départ : {oldBalance}\n\n");
 
             }
             Console.ReadKey(true);
